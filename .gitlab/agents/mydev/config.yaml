@@ -1,0 +1,3 @@
+# path to config for agent k8s .gitlab/agents/mks-agent
+ci_access:
+  - id: myapp
