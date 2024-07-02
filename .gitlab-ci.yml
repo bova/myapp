@@ -32,7 +32,7 @@ deploy-dev:
     - sed -i "s~{IMAGE}~$IMAGE~g" deployment.yml
     - cat deployment.yml
 
-    - kubectl config use-context myapp:mydev
+    - kubectl config use-context mydev
     - kubectl apply -f deployment.yml -n mydev-ns
   rules:
       - if: $CI_COMMIT_BRANCH == "dev"
