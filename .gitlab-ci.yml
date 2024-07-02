@@ -9,8 +9,8 @@ image-build:
   tags:
     - docker-executor
   before_script:
-    - echo $CI_REGISTRY
-    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - echo $CI_REGISTRY_USER
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD 158.160.43.106/root/myapp/myapp
   script:        
     - docker build -t $IMAGE .
     - docker push $IMAGE
