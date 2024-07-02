@@ -15,7 +15,7 @@ image-build:
   script:        
     - unset DOCKER_HOST
     - docker build -t myapp .
-    - docker push $IMAGE
+    - docker push myapp
   rules:
     - if: $CI_COMMIT_BRANCH == "main"
     - if: $CI_COMMIT_BRANCH == "test"
