@@ -1,0 +1,39 @@
+stages:
+  - image-build
+  - deploy
+
+#job name    
+image-build:
+  stage: image-build
+  image: docker:latest
+  tags:
+    - docker-executor
+  before_script:
+    - echo $CI_REGISTRY_USER
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+  script:        
+    - unset DOCKER_HOST
+    - docker build -t myapp .
+    - docker push $IMAGE
+  rules:
+    - if: $CI_COMMIT_BRANCH == "main"
+    - if: $CI_COMMIT_BRANCH == "test"
+
+deploy-dev:
+  stage: deploy
+  image:
+    name: quay.io/appuio/oc:v4.12
+    entrypoint: ['']
+  before_script:
+    - echo $IMAGE
+  script:
+    - 'curl --insecure --header "PRIVATE-TOKEN: $MILLIY_CONFIG_ACCESS_TOKEN" "$CI_API_V4_URL/projects/195/repository/files/services%2F$CI_PROJECT_NAME%2Fdeployment%2Eyml/raw?ref=main" > deployment.yml'
+    - sed -i "s~{IMAGE}~$IMAGE~g" deployment.yml
+    - cat deployment.yml
+
+    - kubectl config use-context $GITLAB_AGENT_PATH_DEV
+    - kubectl apply -f deployment.yml -n $KUBE_NS_DEV   
+  rules:
+      - if: $CI_COMMIT_BRANCH == "dev"
+  tags:
+      - docker-executor    
