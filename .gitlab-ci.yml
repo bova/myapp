@@ -28,13 +28,14 @@ deploy-dev:
   before_script:
     - echo $IMAGE
   script:
-    - 'curl --insecure --header "PRIVATE-TOKEN: $MILLIY_CONFIG_ACCESS_TOKEN" "$CI_API_V4_URL/projects/195/repository/files/services%2F$CI_PROJECT_NAME%2Fdeployment%2Eyml/raw?ref=main" > deployment.yml'
+    - 'curl --insecure --header "PRIVATE-TOKEN: $CONFIG_ACCESS_TOKEN" "$CI_API_V4_URL/projects/1/repository/files/deployment%2Eyml/raw?ref=main" > deployment.yml'
     - sed -i "s~{IMAGE}~$IMAGE~g" deployment.yml
     - cat deployment.yml
 
-    - kubectl config use-context $GITLAB_AGENT_PATH_DEV
-    - kubectl apply -f deployment.yml -n $KUBE_NS_DEV   
+    - kubectl config use-context myapp:mydev
+    - kubectl apply -f deployment.yml -n mydev-ns
   rules:
       - if: $CI_COMMIT_BRANCH == "dev"
+      - if: $CI_COMMIT_BRANCH == "main"
   tags:
       - docker-executor    
