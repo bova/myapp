@@ -11,14 +11,14 @@ image-build:
   before_script:
     - echo $CI_REGISTRY_USER
     - ls -lh; hostname; pwd
-##    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-    - docker login gitlab.bova-vp.ru:5050
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD  https://hub.docker.com/v2/
+##    - docker login gitlab.bova-vp.ru:5050
   script:        
     - unset DOCKER_HOST
-##    - docker build -t vpovetkin/myapp .
-##    - docker push vpovetkin/myapp
-    - docker build -t gitlab.bova-vp.ru:5050/root/myapp .
-    - docker push gitlab.bova-vp.ru:5050/root/myapp
+    - docker build -t vpovetkin/myapp .
+    - docker push vpovetkin/myapp
+##    - docker build -t gitlab.bova-vp.ru:5050/root/myapp .
+##    - docker push gitlab.bova-vp.ru:5050/root/myapp
   rules:
     - if: $CI_COMMIT_BRANCH == "main"
     - if: $CI_COMMIT_BRANCH == "test"
