@@ -15,8 +15,8 @@ image-build:
 ##    - docker login gitlab.bova-vp.ru:5050
   script:        
     - unset DOCKER_HOST
-    - docker build -t vpovetkin/myapp:v1.0.4 .
-    - docker push vpovetkin/myapp:v1.0.4
+    - docker build -t vpovetkin/myapp:v1.0.5 .
+    - docker push vpovetkin/myapp:v1.0.5
 ##    - docker build -t gitlab.bova-vp.ru:5050/root/myapp .
 ##    - docker push gitlab.bova-vp.ru:5050/root/myapp
   rules:
