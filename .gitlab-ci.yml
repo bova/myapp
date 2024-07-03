@@ -20,7 +20,7 @@ image-build:
 ##    - docker build -t gitlab.bova-vp.ru:5050/root/myapp .
 ##    - docker push gitlab.bova-vp.ru:5050/root/myapp
   rules:
-    - if: $CI_COMMIT_BRANCH == "main"
+    - if: $CI_COMMIT_TAG == "main"
     - if: $CI_COMMIT_BRANCH == "test"
 
 deploy-dev:
@@ -40,7 +40,6 @@ deploy-dev:
     - kubectl get pods
     - kubectl apply -f deployment.yml -n mydev-ns
   rules:
-      - if: $CI_COMMIT_BRANCH == "dev"
-      - if: $CI_COMMIT_BRANCH == "main"
+      - if: $CI_COMMIT_TAG == "v*"      
   tags:
       - docker-executor    
