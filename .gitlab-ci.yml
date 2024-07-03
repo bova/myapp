@@ -41,6 +41,6 @@ deploy-dev:
     - kubectl delete deployment myapp -n mydev-ns
     - kubectl apply -f deployment.yml -n mydev-ns
   rules:
-      - if: $CI_COMMIT_TAG == "v*"      
+      - if: $CI_COMMIT_TAG != null
   tags:
       - docker-executor    
