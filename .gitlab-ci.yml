@@ -15,8 +15,8 @@ image-build:
 ##    - docker login gitlab.bova-vp.ru:5050
   script:        
     - unset DOCKER_HOST
-    - docker build -t vpovetkin/myapp:v1.0.5 .
-    - docker push vpovetkin/myapp:v1.0.5
+    - docker build -t vpovetkin/myapp:v1.0.6 .
+    - docker push vpovetkin/myapp:v1.0.6
 ##    - docker build -t gitlab.bova-vp.ru:5050/root/myapp .
 ##    - docker push gitlab.bova-vp.ru:5050/root/myapp
   rules:
@@ -30,6 +30,7 @@ deploy-dev:
     entrypoint: ['']
   before_script:
     - echo $IMAGE
+    - echo $CI_API_V4_URL
   script:
     - 'curl --insecure --header "PRIVATE-TOKEN: $CONFIG_ACCESS_TOKEN" "$CI_API_V4_URL/projects/1/repository/files/deployment%2Eyml/raw?ref=main" > deployment.yml'
     - sed -i "s~{IMAGE}~$IMAGE~g" deployment.yml
