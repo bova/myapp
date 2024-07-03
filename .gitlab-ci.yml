@@ -38,9 +38,9 @@ deploy-dev:
     - kubectl config use-context root/myapp:mydev
     - kubectl config get-contexts
     - kubectl get pods
+    - kubectl delete deployment myapp -n mydev-ns
     - kubectl apply -f deployment.yml -n mydev-ns
   rules:
-      - if: $CI_COMMIT_BRANCH == "dev"
-      - if: $CI_COMMIT_BRANCH == "main"
+      - if: $CI_COMMIT_TAG == "v*"      
   tags:
       - docker-executor    
