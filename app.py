@@ -18,6 +18,8 @@ def hello_world():
 def home():
     if request.method == "POST":
         pw_size = int(request.form["pw_size"])
+        if pw_size > 20:
+            pw_size = 20
         pw = pw_generator(size=pw_size)
         return render_template("pwgen.html", password=pw)
 
