@@ -1,11 +1,12 @@
+variables:
+    CI_COMMIT_TAG: "latest"
+
 stages:
   - image-build
   - deploy
 
 #job name    
 image-build:
-  variables:
-    CI_COMMIT_TAG: "latest"
   stage: image-build
   image: docker:latest
   tags:
