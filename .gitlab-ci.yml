@@ -11,7 +11,7 @@ image-build:
   before_script:
     - echo $CI_REGISTRY_USER
     - ls -lh; hostname; pwd
-    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD  docker.io
+    - docker login -u $DOCKER_USER -p $DOCKER_PASSWORD  docker.io
 ##    - docker login gitlab.bova-vp.ru:5050
   script:        
     - unset DOCKER_HOST
