@@ -10,6 +10,7 @@ image-build:
     - docker-executor
   before_script:
     - echo $CI_REGISTRY_USER
+    - echo $DOCKER_USER
     - ls -lh; hostname; pwd
     - docker login -u $DOCKER_USER -p $DOCKER_PASSWORD  docker.io
 ##    - docker login gitlab.bova-vp.ru:5050
