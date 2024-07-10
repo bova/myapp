@@ -14,6 +14,6 @@ spec:
     spec:
       containers:
       - name: myapp
-        image: vpovetkin/myapp:v1.0.10
+        image: vpovetkin/myapp:$IMAGE
         ports:
         - containerPort: 8000

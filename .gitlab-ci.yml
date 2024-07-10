@@ -34,11 +34,12 @@ deploy-dev:
     entrypoint: ['']
   before_script:
     - echo $IMAGE
+    - echo $CI_COMMIT_TAG
     - echo $CI_API_V4_URL
     - echo $CONFIG_ACCESS_TOKEN
   script:
-    - 'curl -v --insecure --header "PRIVATE-TOKEN: $CONFIG_ACCESS_TOKEN" "$CI_API_V4_URL/projects/1/repository/files/deployment%2Eyml/raw?ref=main" > deployment.yml'
-    - sed -i "s~{IMAGE}~$IMAGE~g" deployment.yml
+##    - 'curl -v --insecure --header "PRIVATE-TOKEN: $CONFIG_ACCESS_TOKEN" "$CI_API_V4_URL/projects/1/repository/files/deployment%2Eyml/raw?ref=main" > deployment.yml'
+    - sed -i "s~{IMAGE}~$CI_COMMIT_TAG~g" deployment.yml
     - cat deployment.yml
 
     - kubectl config use-context root/myapp:mydev
