@@ -26,6 +26,7 @@ image-build:
 ##    - docker push gitlab.bova-vp.ru:5050/root/myapp
   rules:
     - if: $CI_COMMIT_BRANCH == "main"
+    - if: $CI_COMMIT_TAG
 
 deploy-dev:
   stage: deploy
@@ -37,6 +38,7 @@ deploy-dev:
     - echo $CI_COMMIT_TAG
     - echo $CI_API_V4_URL
     - echo $CONFIG_ACCESS_TOKEN
+    - echo $CI_COMMIT_BRANCH
   script:
 ##    - 'curl -v --insecure --header "PRIVATE-TOKEN: $CONFIG_ACCESS_TOKEN" "$CI_API_V4_URL/projects/1/repository/files/deployment%2Eyml/raw?ref=main" > deployment.yml'
     - sed -i "s~{IMAGE}~$CI_COMMIT_TAG~g" deployment.yml
