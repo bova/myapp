@@ -5,12 +5,13 @@ stages:
 #job name    
 image-build:
   variables:
-    IMAGE_TAG: "${CI_COMMIT_TAG:-latest}"
+    IMAGE_TAG: "${CI_COMMIT_TAG}:-latest"
   stage: image-build
   image: docker:latest
   tags:
     - docker-executor
   before_script:
+    - echo $IMAGE_TAG
     - echo $CI_REGISTRY_USER
     - echo $DOCKER_USER
     - ls -lh; hostname; pwd
